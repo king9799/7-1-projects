@@ -1,0 +1,78 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Text Speech{% endblock %}
+{% block content %}
+   <script src="{% static '../../plugins/toastr/toastr.min.js' %}"></script>
+   <link rel="stylesheet" href="{% static '../../plugins/toastr/toastr.min.css' %}}">
+    <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
+    <br>
+    <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="card card-light">
+            <div class="card-header">
+              <h3 class="card-title">Text <i class="fas fa-arrows-alt-h"></i> Speech</h3>
+              <div class="card-tools">
+                  <a><i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+            <div class="container">
+              <form class="container pg-5" method="post" >
+                  {% csrf_token %}
+                <div class="row form-group">
+                   <div class="col-sm-11 ml-5 mt-2">
+                       <label for="text" class="col-form-label">Enter Words:</label>
+                       <textarea id="text" name="tts" class="form-control mb-2" placeholder="Enter you wont words..."></textarea>
+                       <button type="submit"   class="btn-success form-control"><i class="far fa-smile-wink nav-icon"> Speech </i></button>
+                     </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+         <div class="col-md-12">
+          <div class="card card-light">
+            <div class="card-header">
+              <h3 class="card-title">Speech <i class="fas fa-arrows-alt-h"></i> Text</h3>
+              <div class="card-tools">
+                  <a><i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+            <div class="container">
+              <form class="container pg-5" method="post" name="stt">
+                  {% csrf_token %}
+                <div class="row form-group">
+                   <div class="col-sm-11 ml-5 mt-2">
+                       <button type="submit" class="btn-danger form-control" id="stt"><i class="fas fa-microphone nav-icon"> Talking </i></button>
+                       <label for="text" class="col-form-label">You words:</label>
+                       <textarea id="text" name="stt" class="form-control mb-2" placeholder="Enter you wont words...">{{ text }}</textarea>
+                     </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+     </div>
+     </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.tags == 'success'%}
+                                <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+{#                            {% elif message.tags == 'info'%}#}
+{#                                <script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>#}
+{#                            {% elif message.tags == 'warning'%}#}
+{#                                <script>M.toast({html: "{{message}}", classes: 'orange rounded', displayLength:10000});</script>#}
+{#                            {% elif message.tags == 'error'%}#}
+{#                                <script>M.toast({html: "{{message}}", classes: 'red rounded', displayLength:10000});</script>#}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+<script>
+    $('#stt').click(function() {
+      toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+    });
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Weather{% endblock %}
+{% block content %}
+    <br>
+    <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="card card-light">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-cloud">Weather</i></h3>
+              <div class="card-tools">
+                  <a href="/"><i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+            <div class="container">
+              <form class="container pg-5" method="post" >
+                  {% csrf_token %}
+                <div class="row form-group">
+                   <div class="col-sm-6 ml-4 mt-3">
+                         <label for="title" class="col-form-label">Country search:</label>
+                        <input type="text" name="city"  class="form-control" placeholder="Choose Your City ..." required><br>
+                       <button type="submit"   class="btn-success form-control"><i class="fa fa-cloud-rain nav-icon"> Weather forecast</i></button>
+                     </div>
+                    <div class="card col-sm-4 m-3" style="width:400px">
+                        {% if country_code and coordinate and temp and pressure and humidity %}
+                                <h4><span class="badge badge-primary">Country Name :</span> {{name}}</h4>
+                                <h4><span class="badge badge-primary">Country Code :</span> {{country_code}}</h4>
+                                <h4><span class="badge badge-primary">Coordinates [X,Y] :</span> {{coordinate}}</h4>
+                                <h4><span class="badge badge-primary">Temperature in Celsius :</span> {{temp}}</h4>
+                                <h4><span class="badge badge-primary">Pressure :</span> {{pressure}} </h4>
+                                <h4><span class="badge badge-primary">Humidity : </span> {{humidity}}</h4>
+                                <h4><span class="badge badge-primary">Forecast : </span> {{main}} <img
+                                    src="http://openweathermap.org/img/w/{{icon}}.png" alt="Image" style="width:70px"></h4>
+                                <h4><span class="badge badge-primary">Description : </span> {{description}}</h4>
+                          {% endif %}
+                      </div>
+                </div>
+            </form>
+            </div>
+        </div>
+      </div>
+  </div>
+ </div>
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

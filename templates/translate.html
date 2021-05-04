@@ -1,0 +1,39 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Translate{% endblock %}
+{% block content %}
+    <br>
+    <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="card card-light">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fab fa-google mr-1"></i>Translate</h3>
+              <div class="card-tools">
+                  <a><i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+            <div class="container">
+              <form class="container pg-5" method="post" >
+                  {% csrf_token %}
+                <div class="row form-group">
+                   <div class="col-sm-7 ml-4 mt-5">
+                         <label for="text" class="col-form-label">text:</label>
+                        <input id="text" name="text"  class="form-control" required><br>
+                       <button type="submit"   class="btn-success form-control"><i class="fa fa-qrcode nav-icon"> Create QRCode</i></button>
+                     </div>
+                    <div class="col-sm-4 ml-4 mt-5" >
+                        <label for="in2" class="col-form-label">show:</label>
+                        <input id="in2" class="form-control" value="{{ result }}" style="width:400px" disabled><br>
+                      </div>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+     </div>
+    </div>
+
+
+
+{% endblock %}

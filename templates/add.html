@@ -1,0 +1,145 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}To DO{% endblock %}
+{% block content %}
+<br>
+<div class="container container-fluid">
+<div class="content">
+    <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Todo add</h3>
+              <div class="card-tools">
+                <a type="button" href="#" class="btn btn-tool">
+                  <i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+            <div class="container">
+              <form class="container pg-5" method="post" >
+                {% csrf_token %}
+                <div class="row form-group">
+
+                     <div class="col-sm-4">
+                         <label for="title" class="col-form-label">Title</label>
+                        <input id="title" name="title"  class="form-control" required>
+                     </div>
+
+                    <div class="col-sm-8">
+                        <label for="description" class="col-form-label">Description</label>
+                        <input id="description" name="description" class="form-control" required>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-success form-group" id="submit" value="Start">
+                    <button type="button" class="btn btn-secondary form-group" data-toggle="modal" data-target="#modal-xl">History</button>
+                </div>
+            </form>
+            </div>
+        </div>
+      </div>
+  </div>
+ </div>
+  <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-4">
+          <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Start</h3>
+              <div class="card-tools">
+                <a type="button" href="#" class="btn btn-tool">
+                  <i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+              {% for start in todos %}
+            <div class="container">
+                <h5>Title: {{ start.title }}</h5>
+                <h5>Description: {{ start.description }}</h5>
+                <h5>cr_on: {{ start.cr_on }}</h5>
+                <a type="submit" href="/doing/{{ start.id }}" class="btn btn-primary form-group">doing</a>
+                <a type="submit" href="/delete/{{ start.id }}" class="btn btn-danger form-group">delete</a>
+                <hr>
+            </div>
+              {% endfor %}
+        </div>
+        </div>
+         <div class="col-md-4">
+          <div class="card card-warning">
+            <div class="card-header">
+              <h3 class="card-title">Doing</h3>
+              <div class="card-tools">
+                <a type="button" href="#" class="btn btn-tool">
+                  <i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+               {% for doing in todod %}
+            <div class="container">
+                <h5>Title: {{ doing.title }}</h5>
+                <h5>Description: {{ doing.description }}</h5>
+                <a type="submit" class="btn btn-success form-group" href="/finish/{{ doing.id }}">finish</a>
+                <hr>
+            </div>
+              {% endfor %}
+        </div>
+        </div>
+         <div class="col-md-4">
+          <div class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title">Finish</h3>
+              <div class="card-tools">
+                <a type="button" href="#" class="btn btn-tool">
+                  <i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+             {% for finish in todof %}
+            <div class="container">
+                <h5>Title: {{ finish.title }}</h5>
+                <h5>Description: {{ finish.description }}</h5>
+                <a type="submit" class="btn btn-secondary form-group" href="/history/{{ finish.id }}" >history</a>
+                <hr>
+            </div>
+              {% endfor %}
+        </div>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+    <div class="modal fade" id="modal-xl">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+         <div class="modal-header">
+              <h4 class="modal-title">Todo History</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for history in todoh %}
+                 <tr>
+                    <td>{{ history.title }}</td>
+                    <td>{{ history.description }}</td>
+                 </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
