@@ -1,0 +1,51 @@
+{% extends "home.html" %}
+{% load static %}
+{% block title %}Download{% endblock %}
+{% block content %}
+    <br>
+    <div class="container-fluid">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-newspaper mr-1"></i>World News</h3>
+              <div class="card-tools">
+                  <i class="fas fa-window-close"></i></a>
+              </div>
+            </div>
+            <div class="container">
+                <form method="post">
+                  {% csrf_token %}
+                    <br>
+                    <div class="row ml-5 mb-4">
+                        <input type="text" class="form-control col-11" name="news" placeholder="World news search...">
+                        <div class="input-group-append ">
+                          <button class="btn btn-navbar" type="submit">
+                            <i class="fas fa-search"></i>
+                          </button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+     </div>
+    </div>
+
+    <div class="container-fluid">
+     <div class="row">
+{% for new in data %}
+    {% if new.urlToImage != ''%}
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="card mb-2 bg-gradient-dark">
+              <img class="card-img-top" src="{{ new.urlToImage }}" alt="Dist Photo 1">
+              <div class="card-img-overlay d-flex flex-column justify-content-end">
+                <h5 class="card-title text-primary text-white">{{ new.title }}</h5>
+              </div>
+            </div>
+          </div>
+    {% endif %}
+{% endfor %}
+        </div>
+    </div>
+{% endblock %}
